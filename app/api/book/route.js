@@ -33,18 +33,18 @@ export async function GET() {
 export async function POST(request) {
 
     try {
-        const { Title, Author, Category, Stock } = await request.json()
+        const { title, author, category, stock } = await request.json()
         // Mengecek field yang dibutuhkan
-        if (!Title || !Author || !Category || Stock == null) {
+        if (!title || !author || !category || stock == null) {
             return ErrorResponse("Missing required fields", 400)
         }
         // Mulai membuat buku baru
         const newBook = await prisma.book.create({
             data: {
-                title: Title,
-                author: Author,
-                category: Category,
-                Stock: Number(Stock)
+                title: title,
+                author: author,
+                category: category,
+                stock: Number(stock)
             }
         })
         return SuccessResponse(newBook, 201)

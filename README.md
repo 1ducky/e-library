@@ -1,36 +1,162 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# E-Library
 
-## Getting Started
+Aplikasi perpustakaan digital yang dibangun dengan Next.js, Prisma, dan MySQL. Sistem ini memungkinkan pengelolaan koleksi buku dan peminjaman buku secara efisien.
 
-First, run the development server:
+## 📋 Persyaratan Sistem
+
+Sebelum memulai, pastikan Anda telah menginstal:
+
+- **Node.js** v16 atau lebih tinggi ([Download](https://nodejs.org/))
+- **npm** atau **yarn** (biasanya sudah termasuk dengan Node.js)
+- **MySQL** v5.7 atau lebih tinggi ([Download](https://www.mysql.com/downloads/))
+- **Git** ([Download](https://git-scm.com/))
+
+## 🚀 Langkah-Langkah Instalasi
+
+### 1. Clone Repository
+
+```bash
+git clone https://github.com/1ducky/e-library.git
+cd e-library
+```
+
+### 2. Install Dependencies
+
+Instal semua package yang diperlukan:
+
+```bash
+npm install
+```
+
+Atau jika menggunakan yarn:
+
+```bash
+yarn install
+```
+
+### 3. Setup Database MySQL
+
+Buat database baru di MySQL:
+
+```sql
+CREATE DATABASE e_library;
+```
+
+### 4. Konfigurasi Environment Variables
+
+Buat file `.env.local` di root project dan tambahkan konfigurasi database:
+
+```
+DATABASE_URL="mysql://username:password@localhost:3306/e_library"
+```
+
+**Catatan:** Ganti `username` dan `password` dengan kredensial MySQL Anda.
+
+### 5. Setup Prisma
+
+Jalankan migrasi database untuk membuat tabel:
+
+```bash
+npx prisma migrate dev --name init
+```
+
+Atau jika sudah ada migration:
+
+```bash
+npx prisma migrate deploy
+```
+
+### 6. (Opsional) Generate Prisma Client
+
+```bash
+npx prisma generate
+```
+
+### 7. Jalankan Development Server
+
+Mulai aplikasi dalam mode development:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Atau dengan yarn:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+yarn dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Aplikasi akan berjalan di [http://localhost:3000](http://localhost:3000)
 
-## Learn More
+## 📱 Fitur Aplikasi
 
-To learn more about Next.js, take a look at the following resources:
+- ✅ Manajemen Buku (Create, Read, Update, Delete)
+- ✅ Manajemen User (Registrasi, Login)
+- ✅ Sistem Peminjaman Buku
+- ✅ History Peminjaman
+- ✅ Kategori Buku
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🛠 Struktur Project
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+e-library/
+├── app/                 # Next.js App Router
+│   ├── api/            # API Routes
+│   ├── page.tsx        # Homepage
+│   └── layout.tsx      # Layout utama
+├── prisma/             # Prisma ORM
+│   └── schema.prisma   # Database schema
+├── _Lib/               # Library utilities
+├── _Component/         # Komponen Reusable
+├── _Assets/            # Asset statis
+├── package.json        # Dependencies
+└── .env.local          # Environment variables (jangan push ke git)
+```
 
-## Deploy on Vercel
+## 📚 API Endpoints
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Books
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `GET /api/book` - Ambil semua buku
+- `POST /api/book` - Tambah buku baru
+
+### Contoh Request POST:
+
+```json
+{
+  "title": "Clean Code",
+  "author": "Robert C. Martin",
+  "category": "Programming",
+  "stock": 5
+}
+```
+
+## 🔍 Troubleshooting
+
+### Error: "database connection refused"
+- Pastikan MySQL server sudah running
+- Periksa kredensial di `.env.local`
+- Cek apakah port MySQL (3306) tidak terblokir
+
+### Error: "relation not found"
+- Jalankan: `npx prisma migrate deploy`
+- Atau reset: `npx prisma migrate reset`
+
+### Port 3000 sudah digunakan
+```bash
+npm run dev -- -p 3001
+```
+
+## 📖 Dokumentasi Lebih Lanjut
+
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Prisma Documentation](https://www.prisma.io/docs/)
+- [MySQL Documentation](https://dev.mysql.com/doc/)
+
+## 📝 Lisensi
+
+Project ini dilisensikan di bawah MIT License.
+
+## 👤 Author
+
+**1ducky** - [GitHub](https://github.com/1ducky)
