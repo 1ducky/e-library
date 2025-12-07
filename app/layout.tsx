@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { MenuUi } from "@/_Component/MenuUI";
+import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -31,9 +32,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <MenuUi/>
-        <div className="mb-20"></div>
-        {children}
+        <ClerkProvider>
+          <MenuUi/>
+          <div className="mb-20"></div>
+          {children}
+        </ClerkProvider>
       </body>
     </html>
   );
